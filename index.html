@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ebdi Group</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+    <!-- Telas dinamicamente geradas pelo JS -->
+    <div id="telas-container"></div>
+
+    <script>
+        const apis = [
+            // URL das APIs com os títulos atualizados conforme os comentários
+            {
+                url:"https://script.google.com/macros/s/AKfycbx2Jb3u8FcxvaG2hwgDVb9wZCfxx4PWijjEfDvMebiSix8ehfXCYpwzZvAqH7tNAlfs/exec",
+                titulo: "Meta Convites"
+            },
+            {
+                url: "https://script.google.com/macros/s/AKfycbzOTAewfkjTxrK39CmQnd7N9rEJXsOpJzDdKPFdsd1rewmLUXOHG2muE01KtecuG7nz/exec",
+                titulo: "AWS Recife 28.05"
+            },
+            {
+                url: "https://script.google.com/macros/s/AKfycbx_MpD7pSWFzTRLaJD6pSrtHUeZZ69EiW2xxX-ZxT0thnFCkqn3tyHWB431iwEs3JA_/exec",
+                titulo: "IBM IA 28.05"
+            },
+            {
+                url: "https://script.google.com/macros/s/AKfycbyQWR_7mQUylHOkv-G6Y3xU-javiHTOxWDLxobhC8AHJoHfN0G-iijjJm-poIyRZsC1/exec",
+                titulo: "IBM FinOps 28.05"
+            },
+            {
+                url: "https://script.google.com/macros/s/AKfycbwXrDQcini-Bof8ohi4AcspLTxlkTxrCEigcf_44mGpwsWFv_7aZLgifbo--h-MpOGB/exec",
+                titulo: "Genesys 10.06"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbwC2jASHkJxoxFIRB7CzzTXRFW2rcdWfZOBKQLG6WPuCpStnEkisxLvOKnSt3G48K4/exec",
+                titulo: "Compass UOL 04.06"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbx2ujt8QyPBxeOw0wI9rFyEEl8pFi-eyPqDOe5DRuZzFRxp5nTatIetsi3qBswFxkdn/exec",
+                titulo: "Delfia 04.06"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbz6vQB61NEw6OJsV8lbnUpO8MkPqEumq283U5CuwbHLQCTsQWnKzmff01u6jxXLX0PJ/exec",
+                titulo: "Safetec Curitiba 05.06"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbxkVMTPKlbleBS4zu9LgdNjfrT52EOTjdVjv_Sgg1w34Vm1wncSir1a5HaQZ3P_lnz5/exec",
+                titulo: "Alteryx TI 05.06"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbxvncSE4jtSRuDVsedpJt8C2Bxj5GWdsDWEOpYKz_DD9TishBxiUm0P7MPxv4Tyxa8p/exec",
+                titulo: "Agency Darede 17.06"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbxzuTA3eJ09RLE6H6-2GZ80bFVwUjEVzzvFBSOa8CCTZO6B6SGws0CQ_ptSDj6G-GCh/exec",
+                titulo: "AWS RIBEIRÃO PRETO 17/06"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbxxhm51-uGujxfYHLziV-LuWASrPcJmAPwSj9LtJ3erY5zLQZKkSri1hgchnJQomleH/exec",
+                titulo: "AWS RETAIL 17/06"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbxicCAvprj6F04Hmxvxs_p_jNIJBYpIN-EqkbPnKHji4_im6Sg8lKL-88GvQKtoxmiK/exec",
+                titulo: "AGENCY CENTRIC 11/06"
+            },
+        ];
+
+        const telasContainer = document.getElementById('telas-container');
+
+        // Função para criar as telas
+        function criarTelas() {
+            apis.forEach((api, index) => {
+                const tela = document.createElement('div');
+                tela.id = `tela${index + 1}`;
+                tela.style.display = index === 0 ? 'block' : 'none'; // Exibe a primeira tela inicialmente
+                tela.innerHTML = `
+                    <h1 class="title">${api.titulo}</h1>
+                    <div class="container" id="container${index + 1}">
+                        <p>Carregando dados...🚀</p>
+                    </div>
+                `;
+                telasContainer.appendChild(tela);
+            });
+        }
+
+        // Função assíncrona para carregar os dados das APIs
+        async function carregarDados() {
+            try {
+                const dados = await Promise.all(apis.map(async api => {
+                    try {
+                        const res = await fetch(api.url);
+                        if (!res.ok) throw new Error(`Erro HTTP ${res.status}`);
+                        return await res.json();
+                    } catch (e) {
+                        console.warn(`Erro ao buscar dados da API "${api.titulo}":`, e);
+                        return [];
+                    }
+                }));
+                exibirDados(dados);
+            } catch (error) {
+                console.error("Erro ao carregar os dados:", error);
+            }
+        }
+
+        // Função para exibir os dados de forma organizada
+        function exibirDados(dados) {
+    dados.forEach((data, index) => {
+        const container = document.getElementById(`container${index + 1}`);
+        container.innerHTML = "";
+
+        if (!Array.isArray(data) || data.length === 0) {
+            container.innerHTML = "<p>Nenhum dado encontrado.</p>";
+            return;
+        }
+
+        // Separar o item SLA dos demais
+        let slaItem = data.find(item => item.nome && item.nome.toLowerCase().includes("sla"));
+        let outros = data.filter(item => !(item.nome && item.nome.toLowerCase().includes("sla")));
+
+        // Ordenar os demais pela porcentagem de meta alcançada
+        outros.sort((a, b) => {
+            const percentualA = parseInt(a.meta) > 0 ? Math.round((parseInt(a.alcancado) / parseInt(a.meta)) * 100) : 100;
+            const percentualB = parseInt(b.meta) > 0 ? Math.round((parseInt(b.alcancado) / parseInt(b.meta)) * 100) : 100;
+            return percentualB - percentualA;
+        });
+
+        // Junta SLA primeiro (se existir), depois os outros
+        const ordenados = slaItem ? [slaItem, ...outros] : outros;
+
+        // Exibindo os dados de cada item
+        ordenados.forEach((item, i) => {
+            const nome = item.nome || `P${i + 1}`;
+            const meta = Number(item.meta) || 0;
+            const alcancado = Number(item.alcancado) || 0;
+            let percentual = meta > 0 ? Math.round((alcancado / meta) * 100) : 100;
+            const percentualExibido = percentual;
+            percentual = percentual > 100 ? 100 : percentual;
+            const corBarra = percentualExibido < 50 ? "#dc3545" : percentualExibido < 100 ? "#ffc107" : "#28a745";
+
+            // Criação do card para exibir os dados
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            // Adiciona coroa se meta >= 100%
+            const coroaHTML = percentualExibido >= 100 ? `<div style="text-align: center; font-size: 35px; margin-bottom: 10px;">👑</div>` : "";
+
+            card.innerHTML = `
+                <div class="card-body">
+                    ${coroaHTML}
+                    <h3 style="text-align: center;">${nome}</h3>
+                    <p style="text-align: center;">Meta: <span>${meta}</span></p>
+                    <p style="text-align: center;">Alcançado: <span>${alcancado}</span></p>
+                    <div class="progress" style="background-color: white; border-radius: 10px; border: 1px solid #ccc; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);">
+                        <div class="progress-bar" style="width: ${percentual}%; background: ${corBarra}; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                            <span style="color: #000; font-weight: bold;">${percentualExibido}%</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    });
+}
+
+        // Função para alternar entre as telas
+        let indiceTela = 0;
+        function mudarTela() {
+            apis.forEach((_, i) => {
+                document.getElementById(`tela${i + 1}`).style.display = 'none';
+            });
+            document.getElementById(`tela${indiceTela + 1}`).style.display = 'block';
+            indiceTela = (indiceTela + 1) % apis.length;
+        }
+
+        // Inicialização da página
+        window.onload = () => {
+            criarTelas();
+            carregarDados();
+            setInterval(carregarDados, 30000); // Atualiza dados a cada 30 segundos
+            mudarTela();
+            setInterval(mudarTela, 10000); // Troca tela a cada 10 segundos
+        };
+    </script>
+</body>
+</html>
