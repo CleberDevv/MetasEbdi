@@ -18,34 +18,31 @@
                 url:"https://script.google.com/macros/s/AKfycbx2Jb3u8FcxvaG2hwgDVb9wZCfxx4PWijjEfDvMebiSix8ehfXCYpwzZvAqH7tNAlfs/exec",
                 titulo: "Meta Convites"
             },
-            {
-                url:"https://script.google.com/macros/s/AKfycbxvncSE4jtSRuDVsedpJt8C2Bxj5GWdsDWEOpYKz_DD9TishBxiUm0P7MPxv4Tyxa8p/exec",
-                titulo: "Agency Darede 17/06"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbxzuTA3eJ09RLE6H6-2GZ80bFVwUjEVzzvFBSOa8CCTZO6B6SGws0CQ_ptSDj6G-GCh/exec",
-                titulo: "AWS RIBEIRÃO PRETO 17/06"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbxxhm51-uGujxfYHLziV-LuWASrPcJmAPwSj9LtJ3erY5zLQZKkSri1hgchnJQomleH/exec",
-                titulo: "AWS RETAIL 17/06"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbwLMa348hoVw7AX13q3U1yWTjY94XqtmzcFVWohec53ns59YSiJeEjAE0GzLWQZ8O2-/exec",
-                titulo: "Telesign 24/06/2025"
-            },
-            {
+            /*{
                 url:"https://script.google.com/macros/s/AKfycbwhStdTacaGMGK3AIVeVgfrC64SiB7AtUsYIiX9CsqGB7609T6zEAFEtLiis1IxjxCN/exec",
-                titulo: "Darede Brasília 10/07"
+                titulo: "Darede Brasília 10.07"
+            },*/
+            {
+                url:"https://script.google.com/macros/s/AKfycbzhz9fRyiahAFf8i8s2LL70BvuRdEQ0X-4mEd9Jz55H9AtU4PfuqKOPHJLQ4bAYGT4/exec",
+                titulo:"COMPASS UOL 02.07"
+            },
+                        {
+                url:"https://script.google.com/macros/s/AKfycbxHHJxlxZ8MQkUxIRfTEkdbaB6OKSUsFBiuJvJm5dyH6d34EMSfzjyAczdEddJPjp33/exec",
+                titulo:"Darede Fortaleza 03.07"
             },
             {
-                url:"https://script.google.com/macros/s/AKfycbxovtXEaUIP9Vc0sP4TaOSv80Jv0SUnxH8IMNGkhOE33bjTKgPGFWT1vaB_NPlXvXJh/exec",
-                titulo: "Darede Goiânia 26/06"
+                url:"https://script.google.com/macros/s/AKfycbzSYLnI3UdW1cBjzZdioCJbGYpqOZQExmFlpsVSt_Hz3YEdao_knj8jZg39iMPfs35t/exec",
+                titulo:"Delfia 15.07"
             },
             {
                 url:"https://script.google.com/macros/s/AKfycbyUe98o1q6j-sEn33cxiO11rxEyZ3V_VHmnxk2NTotjaR_dqALACsSUMw0p8JLF4XsD/exec",
                 titulo: "Infobip CDMX 15.07"
             },
+            {
+                url:"https://script.google.com/macros/s/AKfycbwWj5gv8dLINm7PBq6VTAmagehhusnNjaLGzdrDZDOA7EFgAtORouWTIsYD0T_uvMot/exec",
+                titulo:"A3Data 22.07"
+            },
+
         ];
 
         const telasContainer = document.getElementById('telas-container');
@@ -100,14 +97,14 @@
         let slaItem = data.find(item => item.nome && item.nome.toLowerCase().includes("sla"));
         let outros = data.filter(item => !(item.nome && item.nome.toLowerCase().includes("sla")));
 
-        // Ordenar os demais pela porcentagem de meta alcançada
+        // Ordena a exibição dos lovers pela porcentagem da meta
         outros.sort((a, b) => {
             const percentualA = parseInt(a.meta) > 0 ? Math.round((parseInt(a.alcancado) / parseInt(a.meta)) * 100) : 100;
             const percentualB = parseInt(b.meta) > 0 ? Math.round((parseInt(b.alcancado) / parseInt(b.meta)) * 100) : 100;
             return percentualB - percentualA;
         });
 
-        // Junta SLA primeiro (se existir), depois os outros
+        // Junta SLA 
         const ordenados = slaItem ? [slaItem, ...outros] : outros;
 
         // Exibindo os dados de cada item
@@ -124,7 +121,7 @@
             const card = document.createElement('div');
             card.className = 'card';
 
-            // Adiciona coroa se meta >= 100%
+            // Função de adicionar coroa se bateu a meta
             const coroaHTML = percentualExibido >= 100 ? `<div style="text-align: center; font-size: 35px; margin-bottom: 10px;">👑</div>` : "";
 
             card.innerHTML = `
@@ -161,8 +158,8 @@
             carregarDados();
             setInterval(carregarDados, 30000); // Atualiza dados a cada 30 segundos
             mudarTela();
-            setInterval(mudarTela, 10000); // Troca tela a cada 10 segundos
+            setInterval(mudarTela, 10000); // Muda de tela a cada 10 segundos
         };
     </script>
 </body>
-</html>
+</html> 
