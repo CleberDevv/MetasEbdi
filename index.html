@@ -8,49 +8,52 @@
 </head>
 <body>
 
-    <!-- Telas geradas pelo JS -->
+    <!-- Telas dinamicamente geradas pelo JS -->
     <div id="telas-container"></div>
 
     <script>
         const apis = [
             // URL das APIs com os títulos atualizados conforme os comentários
             {
-                url:"https://script.google.com/macros/s/AKfycbx2Jb3u8FcxvaG2hwgDVb9wZCfxx4PWijjEfDvMebiSix8ehfXCYpwzZvAqH7tNAlfs/exec",
-                titulo: "Meta Convites"
-            },
+                url:"https://script.google.com/macros/s/AKfycbx2Jb3u8FcxvaG2hwgDVb9wZCfxx4PWijjEfDvMebiSix8ehfXCYpwzZvAqH7tNAlfs/exec",
+                titulo: "Meta Convites"
+            },
             {
-                url:"https://script.google.com/macros/s/AKfycbwVsbJWcYUJpn32VDwMoICytj2LlccnnpH7LLFZZzq-PWFsKn0VQigks1VX8ObGDRXu/exec",
-                titulo:"Darede Brasilia 11.09"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbyNdBqRhPlfOWD1lgQOx80eqNcxLsr82A5pQTs5RtmJ28aDsE5Exk4o836PHemG1VFR/exec",
-                titulo:"AWS Florianópolis 10.09"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbzsZJLJzQWOh1gt8vCj-3aTNcIjonJ5k5_kaLpYNB-mNuY4mxPD1u9yCDPjOmCh0ic7/exec",
-                titulo:"Agency - Codurance 02.09"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbxNbN9ztbgYho7pUQ-efsj0WN82QRv5TElqeYE344tLcKjZ-bQOUEXkpEeIDKWwbjh3/exec",
-                titulo:"Codurance 04.09"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbx_xcRR4ak_JgGftOxlWX6s_oGhhorjc86u9TvUVKirs2fu7Qsvq0RJRIcB7OnmcqCG/exec",
-                titulo:"DocuSign 23.09"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbzklT44C0OU8uNnrFyY7XsJMTjIQQxWNlRKMEBDUkzmBZKTx95o37sRVnTdyhEUEMPy/exec",
-                titulo:"Safetec & Google BH 16.09"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbwbeU_tYIJdWocs9jpnwB_vg7gkINJmwjaLZJ6utCOg1lUZEzEKbn2IqGbD-5OxLsHM/exec",
-                titulo:"Red Hat 17.09"
-            },
-            {
-                url:"https://script.google.com/macros/s/AKfycbznmlNQBB9t-Hkk8EACjBAAWFlnk3lHESW0rV6OonXxn8-cPfiEOver_jdWcZUx8wBB/exec",
-                titulo:"Elsa 09.09.25 "
-            },
-
+                url:"https://script.google.com/macros/s/AKfycbwXKaC3QJ2kj67cvTAk9seB0xAVV5EshwEtc-t2oGCDst1q7hHF4TLne_fRBa5Q0qFd/exec",
+                titulo: "Meta Convites"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbwVsbJWcYUJpn32VDwMoICytj2LlccnnpH7LLFZZzq-PWFsKn0VQigks1VX8ObGDRXu/exec",
+                titulo:"Darede Brasilia 11.09"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbyNdBqRhPlfOWD1lgQOx80eqNcxLsr82A5pQTs5RtmJ28aDsE5Exk4o836PHemG1VFR/exec",
+                titulo:"AWS Florianópolis 10.09"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbzsZJLJzQWOh1gt8vCj-3aTNcIjonJ5k5_kaLpYNB-mNuY4mxPD1u9yCDPjOmCh0ic7/exec",
+                titulo:"Agency - Codurance 02.09"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbxNbN9ztbgYho7pUQ-efsj0WN82QRv5TElqeYE344tLcKjZ-bQOUEXkpEeIDKWwbjh3/exec",
+                titulo:"Codurance 04.09"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbx_xcRR4ak_JgGftOxlWX6s_oGhhorjc86u9TvUVKirs2fu7Qsvq0RJRIcB7OnmcqCG/exec",
+                titulo:"DocuSign 23.09"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbzklT44C0OU8uNnrFyY7XsJMTjIQQxWNlRKMEBDUkzmBZKTx95o37sRVnTdyhEUEMPy/exec",
+                titulo:"Safetec & Google BH 16.09"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbwbeU_tYIJdWocs9jpnwB_vg7gkINJmwjaLZJ6utCOg1lUZEzEKbn2IqGbD-5OxLsHM/exec",
+                titulo:"Red Hat 17.09"
+            },
+            {
+                url:"https://script.google.com/macros/s/AKfycbznmlNQBB9t-Hkk8EACjBAAWFlnk3lHESW0rV6OonXxn8-cPfiEOver_jdWcZUx8wBB/exec",
+                titulo:"Elsa 09.09.25 "
+            },
         ];
 
         const telasContainer = document.getElementById('telas-container');
@@ -105,14 +108,14 @@
         let slaItem = data.find(item => item.nome && item.nome.toLowerCase().includes("sla"));
         let outros = data.filter(item => !(item.nome && item.nome.toLowerCase().includes("sla")));
 
-        // Ordena a exibição dos lovers pela porcentagem da meta
+        // Ordenar os demais pela porcentagem de meta alcançada
         outros.sort((a, b) => {
             const percentualA = parseInt(a.meta) > 0 ? Math.round((parseInt(a.alcancado) / parseInt(a.meta)) * 100) : 100;
             const percentualB = parseInt(b.meta) > 0 ? Math.round((parseInt(b.alcancado) / parseInt(b.meta)) * 100) : 100;
             return percentualB - percentualA;
         });
 
-        // Junta SLA 
+        // Junta SLA primeiro (se existir), depois os outros
         const ordenados = slaItem ? [slaItem, ...outros] : outros;
 
         // Exibindo os dados de cada item
@@ -129,7 +132,7 @@
             const card = document.createElement('div');
             card.className = 'card';
 
-            // Função de adicionar coroa se bateu a meta
+            // Adiciona coroa se meta >= 100%
             const coroaHTML = percentualExibido >= 100 ? `<div style="text-align: center; font-size: 35px; margin-bottom: 10px;">👑</div>` : "";
 
             card.innerHTML = `
@@ -166,8 +169,8 @@
             carregarDados();
             setInterval(carregarDados, 30000); // Atualiza dados a cada 30 segundos
             mudarTela();
-            setInterval(mudarTela, 15000); // Muda de tela a cada 10 segundos
+            setInterval(mudarTela, 10000); // Troca tela a cada 10 segundos
         };
     </script>
 </body>
-</html> 
+</html>
